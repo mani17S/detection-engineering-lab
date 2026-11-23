@@ -1,0 +1,11 @@
+{
+  "positive": [
+    {"Image": "C:\\Windows\\System32\\schtasks.exe", "CommandLine": "schtasks.exe /create /tn Updater /tr C:\\Users\\Public\\u.exe /sc minute /mo 5"},
+    {"Image": "C:\\Windows\\System32\\SCHTASKS.EXE", "CommandLine": "SCHTASKS /Create /TN x /TR calc.exe /SC ONLOGON"}
+  ],
+  "negative": [
+    {"Image": "C:\\Windows\\System32\\schtasks.exe", "CommandLine": "schtasks.exe /query /fo LIST"},
+    {"Image": "C:\\Windows\\System32\\schtasks.exe", "CommandLine": "schtasks.exe /delete /tn Updater /f"},
+    {"Image": "C:\\Windows\\System32\\cmd.exe", "CommandLine": "cmd.exe /c echo schtasks /create"}
+  ]
+}

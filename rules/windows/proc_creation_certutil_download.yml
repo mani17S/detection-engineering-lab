@@ -1,0 +1,28 @@
+title: Certutil Used to Download a File
+id: 815c918f-75e7-4971-954a-7dad078b82db
+status: experimental
+description: >
+  Detects certutil fetching a remote file with -urlcache. Certutil is a signed Windows binary that is
+  abused to download tooling while avoiding obvious download utilities.
+references:
+  - https://attack.mitre.org/techniques/T1105/
+  - https://lolbas-project.github.io/lolbas/Binaries/Certutil/
+author: mani17S
+date: 2026-11-24
+tags:
+  - attack.command_and_control
+  - attack.t1105
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_img:
+    Image|endswith: '\certutil.exe'
+  selection_cache:
+    CommandLine|contains: '-urlcache'
+  selection_url:
+    CommandLine|contains: 'http'
+  condition: selection_img and selection_cache and selection_url
+falsepositives:
+  - Rare administrative use of certutil to fetch CRLs or certificates
+level: high
