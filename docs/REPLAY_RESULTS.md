@@ -26,12 +26,13 @@ python -I scripts/replay_evtx.py EVTX-ATTACK-SAMPLES --json results.json
 | Scheduled Task Created via schtasks | 7 | 6 |
 | LSASS Memory Dump via comsvcs or ProcDump | 3 | 3 |
 | Certutil Used to Download a File | 1 | 1 |
+| Certutil Used to Encode or Decode a File | 3 | 2 |
 | Office Application Spawning Script or Shell Interpreter | 1 | 1 |
 | PowerShell Encoded Command Execution | 1 | 1 |
 | Volume Shadow Copy Deletion | 1 | 1 |
-| **Total** | **14** | |
+| **Total** | **17** | |
 
-I read every one of the 14 hits. All were genuine attack activity from the labelled samples, for
+I read every one of the 17 hits. All were genuine attack activity from the labelled samples, for
 example `rundll32 comsvcs.dll, MiniDump <pid> ... full`, `vssadmin.exe delete shadows /all /quiet`
 and `certutil -urlcache -split -f https://...`. One (Office rule) is a `cmd /c ... del wwlib.dll` spawned
 from a Word DLL side-loading sample, which I counted as a true positive.
@@ -45,8 +46,8 @@ from a Word DLL side-loading sample, which I counted as a true positive.
   environments.
 - **Does not show recall.** The corpus is not labelled per event; I only checked misses for the
   behaviours these rules target (below).
-- **Tuned on this data.** I added `ppldump.exe` to the LSASS rule *after* seeing it missed here
-  (`ppldump.exe -v lsass lsass.dmp` was in the corpus). Treat results on this dataset as optimistic;
+- **Tuned on this data.** I added `ppldump.exe` to the LSASS rule and wrote the certutil encode/decode rule
+  *after* seeing both missed here (`ppldump.exe -v lsass lsass.dmp`, `certutil -decode ...`). Treat results on this dataset as optimistic;
   the honest next test is a different dataset.
 
 ## Misses reviewed
@@ -61,10 +62,10 @@ every event that no rule matched.
 | `cmd /c "<tool> ..."` wrapper lines | Not a gap: the child process event was matched; the wrapper only duplicates it |
 | `vssadmin create shadow`, `wmic shadowcopy call create`, `vssadmin list shadows` | Correct non-detections (not deletion) |
 | `schtasks /run`, `/delete` | Correct non-detections (not creation) |
-| `certutil -encode` / `-decode` | Out of scope for the download rule (different technique, T1140); candidate for a new rule |
+| `certutil -encode` / `-decode` | **Real gap, fixed** with a new T1140 rule (3 hits). Also written after seeing this data, so same optimism caveat as PPLdump |
 | `procdump.exe -ma lsass.exe` seen only inside a `cmd /c` wrapper | Possible gap if the child process event was not logged in that sample; not confirmed |
 
 ## Next
 
 - Replay a **benign** Windows baseline to estimate false positives.
-- Add a `certutil -encode/-decode` rule (T1140) and tune `schtasks /create` (e.g. by parent or task path).
+- Tune `schtasks /create` (e.g. by parent process or task path) to cut expected noise.

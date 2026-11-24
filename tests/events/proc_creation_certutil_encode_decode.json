@@ -1,0 +1,14 @@
+{
+  "positive": [
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -decode file.txt C:\\Users\\Public\\payload.exe"},
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil -f -decode fi.b64 allthethings.dll"},
+    {"Image": "C:\\Windows\\System32\\CertUtil.exe", "CommandLine": "CertUtil.exe -encode C:\\file.exe file.txt"},
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil -decodehex in.hex out.bin"}
+  ],
+  "negative": [
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -hashfile C:\\file.iso SHA256"},
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -dump cert.cer"},
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -store my"},
+    {"Image": "C:\\Windows\\System32\\notepad.exe", "CommandLine": "notepad.exe -decode notes.txt"}
+  ]
+}

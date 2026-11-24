@@ -14,6 +14,7 @@ Every rule ships with **attack events that must fire** and **benign look-alikes 
 | Tactic | Technique | Rule | Level | File |
 |---|---|---|---|---|
 | command and control | T1105 | Certutil Used to Download a File | high | `rules/windows/proc_creation_certutil_download.yml` |
+| defense evasion | T1140 | Certutil Used to Encode or Decode a File | medium | `rules/windows/proc_creation_certutil_encode_decode.yml` |
 | credential access | T1003.001 | LSASS Memory Dump via comsvcs or ProcDump | high | `rules/windows/proc_creation_lsass_dump_tools.yml` |
 | execution | T1204.002, T1059 | Office Application Spawning Script or Shell Interpreter | high | `rules/windows/proc_creation_office_spawns_shell.yml` |
 | execution, defense evasion | T1059.001, T1027 | PowerShell Encoded Command Execution | medium | `rules/windows/proc_creation_powershell_encoded_command.yml` |
@@ -64,8 +65,8 @@ tests/test_engine.py            unit tests for the evaluator
 ## Replay against real attack data
 
 `scripts/replay_evtx.py` replays EVTX logs through the rules. I ran it on 278 public attack samples
-(1,533 process-creation events): **14 detections, all reviewed and genuine attack activity**, and the review
-of *misses* found one real gap (PPLdump) that I fixed. Full method, numbers and caveats, including that
+(1,533 process-creation events): **17 detections, all reviewed and genuine attack activity**, and the review
+of *misses* found two real gaps (PPLdump, certutil encode/decode) that I fixed. Full method, numbers and caveats, including that
 this is **not** a false-positive measurement, are in [docs/REPLAY_RESULTS.md](docs/REPLAY_RESULTS.md).
 
 ```bash
@@ -91,7 +92,7 @@ It deliberately does **not** support regex, CIDR, base64 modifiers, aggregations
 - [ ] Rules for Linux auditd and container runtime events (building on [DockerScape](https://github.com/mani17S/DockerScape))
 - [x] Replay public EVTX attack samples and review hits and misses (see docs/REPLAY_RESULTS.md)
 - [ ] Replay a benign baseline to measure false positives
-- [ ] Add a `certutil -encode/-decode` rule (T1140)
+- [x] Add a `certutil -encode/-decode` rule (T1140)
 - [ ] Convert to a SIEM query (via pySigma) and validate in a home-lab Wazuh/Elastic stack
 - [ ] Sigma regex and `count()` support in the evaluator, with tests
 
