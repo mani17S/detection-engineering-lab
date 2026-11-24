@@ -29,4 +29,5 @@ jobs:
           python -m detlab.navigator rules > /dev/null
       - name: Committed coverage docs are up to date
         run: |
-          python -m detlab.coverage rules | diff -u docs/ATTACK_COVERAGE.md -
+          # the file has a 4-line header; the generated table starts on line 5
+          diff -u <(tail -n +5 docs/ATTACK_COVERAGE.md) <(python -m detlab.coverage rules)
