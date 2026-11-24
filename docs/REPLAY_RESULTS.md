@@ -65,7 +65,14 @@ every event that no rule matched.
 | `certutil -encode` / `-decode` | **Real gap, fixed** with a new T1140 rule (3 hits). Also written after seeing this data, so same optimism caveat as PPLdump |
 | `procdump.exe -ma lsass.exe` seen only inside a `cmd /c` wrapper | Possible gap if the child process event was not logged in that sample; not confirmed |
 
+## Re-run on v2
+
+After the v2 changes (`windash` modifier and five Linux rules) the replay produced the **same 17 detections**.
+The Windows rules did not gain or lose hits, and the Linux rules correctly fired 0 times on Windows data. Linux
+rules have **not** been replayed against real Linux logs.
+
 ## Next
 
 - Replay a **benign** Windows baseline to estimate false positives.
+- Replay Linux auditd/Falco data through the Linux rules.
 - Tune `schtasks /create` (e.g. by parent process or task path) to cut expected noise.

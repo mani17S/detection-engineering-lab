@@ -1,0 +1,25 @@
+title: Remote Script Downloaded and Piped to a Shell
+id: 160ad2dc-1079-4a9d-bc84-0079b491d6cc
+status: experimental
+description: >
+  Detects curl or wget output piped directly into a shell interpreter, a common way to run a remote payload without writing it to disk first.
+references:
+  - https://attack.mitre.org/techniques/T1105/
+  - https://attack.mitre.org/techniques/T1059/004/
+author: mani17S
+date: 2026-11-24
+tags:
+  - attack.command_and_control
+  - attack.t1105
+  - attack.execution
+  - attack.t1059.004
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|re: '(curl|wget)\s[^|]*\|\s*(sudo\s+)?(ba|z|da|k)?sh\b'
+  condition: selection
+falsepositives:
+  - Documented installers that tell users to run 'curl ... | sh' (allow-list the exact URL or parent process)
+level: medium

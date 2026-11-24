@@ -18,7 +18,7 @@ logsource:
 detection:
   selection:
     Image|endswith: '\schtasks.exe'
-    CommandLine|contains: ' /create '
+    CommandLine|windash|contains: ' -create '
   condition: selection
 falsepositives:
   - Software installers and administrators creating legitimate tasks (expect noise; use for hunting or tune per environment)

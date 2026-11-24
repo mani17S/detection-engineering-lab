@@ -1,0 +1,80 @@
+{
+  "name": "detection-engineering-lab coverage",
+  "versions": {
+    "attack": "16",
+    "navigator": "5.1.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Techniques covered by at least one rule in mani17S/detection-engineering-lab.",
+  "gradient": {
+    "colors": [
+      "#d6e4ff",
+      "#2f6fed"
+    ],
+    "minValue": 0,
+    "maxValue": 3
+  },
+  "techniques": [
+    {
+      "techniqueID": "T1003.001",
+      "score": 1,
+      "comment": "LSASS Memory Dump via comsvcs or ProcDump"
+    },
+    {
+      "techniqueID": "T1027",
+      "score": 1,
+      "comment": "PowerShell Encoded Command Execution"
+    },
+    {
+      "techniqueID": "T1053.005",
+      "score": 1,
+      "comment": "Scheduled Task Created via schtasks"
+    },
+    {
+      "techniqueID": "T1059",
+      "score": 1,
+      "comment": "Office Application Spawning Script or Shell Interpreter"
+    },
+    {
+      "techniqueID": "T1059.001",
+      "score": 1,
+      "comment": "PowerShell Encoded Command Execution"
+    },
+    {
+      "techniqueID": "T1059.004",
+      "score": 3,
+      "comment": "Base64-Decoded Content Piped to a Shell; Bash Reverse Shell via /dev/tcp; Remote Script Downloaded and Piped to a Shell"
+    },
+    {
+      "techniqueID": "T1105",
+      "score": 2,
+      "comment": "Certutil Used to Download a File; Remote Script Downloaded and Piped to a Shell"
+    },
+    {
+      "techniqueID": "T1140",
+      "score": 2,
+      "comment": "Base64-Decoded Content Piped to a Shell; Certutil Used to Encode or Decode a File"
+    },
+    {
+      "techniqueID": "T1204.002",
+      "score": 1,
+      "comment": "Office Application Spawning Script or Shell Interpreter"
+    },
+    {
+      "techniqueID": "T1490",
+      "score": 1,
+      "comment": "Volume Shadow Copy Deletion"
+    },
+    {
+      "techniqueID": "T1548.001",
+      "score": 1,
+      "comment": "SetUID Bit Added to a File"
+    },
+    {
+      "techniqueID": "T1611",
+      "score": 1,
+      "comment": "Container Escape Indicators (Privileged Run, Root Mount, nsenter PID 1)"
+    }
+  ]
+}

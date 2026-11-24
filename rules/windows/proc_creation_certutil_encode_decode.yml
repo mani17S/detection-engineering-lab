@@ -19,13 +19,11 @@ detection:
   selection_img:
     Image|endswith: '\certutil.exe'
   selection_action:
-    CommandLine|contains:
+    CommandLine|windash|contains:
       - ' -decode '
       - ' -encode '
       - ' -decodehex '
       - ' -encodehex '
-      - ' /decode '
-      - ' /encode '
   condition: selection_img and selection_action
 falsepositives:
   - Administrators converting certificates between PEM/DER and base64 formats (check the file extension and path)

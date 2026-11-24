@@ -1,0 +1,26 @@
+{
+  "positive": [
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -c 'echo ZWNobyBoaQ== | base64 -d | bash'"
+    },
+    {
+      "Image": "/bin/sh",
+      "CommandLine": "sh -c 'base64 --decode payload.b64 | sh'"
+    }
+  ],
+  "negative": [
+    {
+      "Image": "/usr/bin/base64",
+      "CommandLine": "base64 -d secret.b64 > secret.txt"
+    },
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -c 'echo hi | base64'"
+    },
+    {
+      "Image": "/bin/bash",
+      "CommandLine": "bash -c 'base64 -d data.b64 | sha256sum'"
+    }
+  ]
+}

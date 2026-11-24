@@ -1,0 +1,38 @@
+{
+  "positive": [
+    {
+      "Image": "/usr/bin/docker",
+      "CommandLine": "docker run --rm -it --privileged ubuntu bash"
+    },
+    {
+      "Image": "/usr/bin/docker",
+      "CommandLine": "docker run -v /:/host alpine chroot /host sh"
+    },
+    {
+      "Image": "/usr/bin/nsenter",
+      "CommandLine": "nsenter --target 1 --mount --uts --ipc --net --pid -- bash"
+    },
+    {
+      "Image": "/usr/bin/nsenter",
+      "CommandLine": "nsenter -t 1 -m -u -i -n -p sh"
+    }
+  ],
+  "negative": [
+    {
+      "Image": "/usr/bin/docker",
+      "CommandLine": "docker run --rm hello-world"
+    },
+    {
+      "Image": "/usr/bin/docker",
+      "CommandLine": "docker run -v /home/user/data:/data nginx"
+    },
+    {
+      "Image": "/usr/bin/nsenter",
+      "CommandLine": "nsenter --target 12345 --net ip a"
+    },
+    {
+      "Image": "/usr/bin/nsenter",
+      "CommandLine": "nsenter -t 4242 -n ss -tlnp"
+    }
+  ]
+}

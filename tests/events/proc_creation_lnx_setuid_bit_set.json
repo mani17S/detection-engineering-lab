@@ -1,0 +1,34 @@
+{
+  "positive": [
+    {
+      "Image": "/usr/bin/chmod",
+      "CommandLine": "chmod u+s /tmp/bash"
+    },
+    {
+      "Image": "/usr/bin/chmod",
+      "CommandLine": "chmod 4755 /tmp/.x"
+    },
+    {
+      "Image": "/usr/bin/sudo",
+      "CommandLine": "sudo chmod +s /usr/bin/find"
+    }
+  ],
+  "negative": [
+    {
+      "Image": "/usr/bin/chmod",
+      "CommandLine": "chmod 755 script.sh"
+    },
+    {
+      "Image": "/usr/bin/chmod",
+      "CommandLine": "chmod g+s /srv/shared"
+    },
+    {
+      "Image": "/usr/bin/chmod",
+      "CommandLine": "chmod +x run.sh"
+    },
+    {
+      "Image": "/usr/bin/chmod",
+      "CommandLine": "chmod 2775 /srv/shared"
+    }
+  ]
+}

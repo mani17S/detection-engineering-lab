@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "detlab"
+version = "2.0.0"
+description = "Test-driven Sigma detection rules with a small evaluator, CLI and ATT&CK Navigator export"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["pyyaml>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+replay = ["evtx>=0.8"]
+
+[tool.setuptools]
+packages = ["detlab"]

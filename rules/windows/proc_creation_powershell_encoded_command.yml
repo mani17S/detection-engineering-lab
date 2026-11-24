@@ -23,7 +23,7 @@ detection:
       - '\powershell.exe'
       - '\pwsh.exe'
   selection_flag:
-    CommandLine|contains:
+    CommandLine|windash|contains:
       - ' -enc '
       - ' -enco'
       - ' -encodedcommand '

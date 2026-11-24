@@ -2,7 +2,9 @@
   "positive": [
     {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe -NoP -W Hidden -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQA"},
     {"Image": "C:\\Program Files\\PowerShell\\7\\pwsh.exe", "CommandLine": "pwsh.exe -EncodedCommand dwBoAG8AYQBtAGkA"},
-    {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\POWERSHELL.EXE", "CommandLine": "POWERSHELL.EXE -ec dwBoAG8AYQBtAGkA"}
+    {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\POWERSHELL.EXE", "CommandLine": "POWERSHELL.EXE -ec dwBoAG8AYQBtAGkA"},
+    {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe /enc dwBoAG8AYQBtAGkA"},
+    {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe \u2013enc dwBoAG8AYQBtAGkA"}
   ],
   "negative": [
     {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe -File C:\\Scripts\\backup.ps1"},

@@ -1,0 +1,41 @@
+{
+  "_note": "Hand-written, everyday administrative activity. This is a regression guard for obvious false positives, NOT a measurement of real-world false-positive rate. schtasks /create is intentionally excluded because the rule is documented as noisy.",
+  "windows": [
+    {"Image": "C:\\Windows\\System32\\cmd.exe", "ParentImage": "C:\\Windows\\explorer.exe", "CommandLine": "cmd.exe"},
+    {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "ParentImage": "C:\\Windows\\explorer.exe", "CommandLine": "powershell.exe -NoProfile -File C:\\Scripts\\inventory.ps1"},
+    {"Image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "CommandLine": "powershell.exe Get-Process | Sort-Object CPU -Descending"},
+    {"Image": "C:\\Windows\\System32\\ipconfig.exe", "CommandLine": "ipconfig /all"},
+    {"Image": "C:\\Windows\\System32\\ping.exe", "CommandLine": "ping -n 4 example.invalid"},
+    {"Image": "C:\\Windows\\System32\\tasklist.exe", "CommandLine": "tasklist /v"},
+    {"Image": "C:\\Windows\\System32\\schtasks.exe", "CommandLine": "schtasks.exe /query /fo LIST /v"},
+    {"Image": "C:\\Windows\\System32\\schtasks.exe", "CommandLine": "schtasks.exe /run /tn \"Backup\""},
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -hashfile C:\\Downloads\\setup.iso SHA256"},
+    {"Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -store -user my"},
+    {"Image": "C:\\Windows\\System32\\vssadmin.exe", "CommandLine": "vssadmin.exe list shadows"},
+    {"Image": "C:\\Windows\\System32\\vssadmin.exe", "CommandLine": "vssadmin.exe create shadow /for=C:"},
+    {"Image": "C:\\Windows\\System32\\wbem\\WMIC.exe", "CommandLine": "wmic os get caption,version"},
+    {"Image": "C:\\Windows\\System32\\rundll32.exe", "CommandLine": "rundll32.exe shell32.dll,Control_RunDLL"},
+    {"Image": "C:\\Windows\\System32\\rundll32.exe", "CommandLine": "rundll32.exe printui.dll,PrintUIEntry /il"},
+    {"Image": "C:\\Windows\\System32\\notepad.exe", "ParentImage": "C:\\Windows\\explorer.exe", "CommandLine": "notepad.exe notes.txt"},
+    {"Image": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "ParentImage": "C:\\Windows\\explorer.exe", "CommandLine": "WINWORD.EXE report.docx"},
+    {"Image": "C:\\Windows\\System32\\splwow64.exe", "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "CommandLine": "splwow64.exe 12288"},
+    {"Image": "C:\\Tools\\procdump.exe", "CommandLine": "procdump.exe -ma myapp.exe myapp.dmp"}
+  ],
+  "linux": [
+    {"Image": "/bin/bash", "CommandLine": "bash -c 'ls -la /var/log'"},
+    {"Image": "/usr/bin/curl", "CommandLine": "curl -sS https://example.invalid/health"},
+    {"Image": "/bin/bash", "CommandLine": "bash -c 'curl -s https://example.invalid/api | jq .status'"},
+    {"Image": "/usr/bin/wget", "CommandLine": "wget -O /tmp/archive.tar.gz https://example.invalid/archive.tar.gz"},
+    {"Image": "/usr/bin/base64", "CommandLine": "base64 -d token.b64"},
+    {"Image": "/bin/bash", "CommandLine": "bash -c 'echo hello | base64'"},
+    {"Image": "/usr/bin/chmod", "CommandLine": "chmod 644 /etc/myapp.conf"},
+    {"Image": "/usr/bin/chmod", "CommandLine": "chmod 755 deploy.sh"},
+    {"Image": "/usr/bin/chmod", "CommandLine": "chmod -R u+rwX,g+rX /srv/www"},
+    {"Image": "/usr/bin/docker", "CommandLine": "docker ps -a"},
+    {"Image": "/usr/bin/docker", "CommandLine": "docker run --rm -p 8080:80 nginx"},
+    {"Image": "/usr/bin/docker", "CommandLine": "docker run -v /home/dev/app:/app node:20 npm test"},
+    {"Image": "/usr/bin/nsenter", "CommandLine": "nsenter --target 3151 --net ip addr"},
+    {"Image": "/bin/bash", "CommandLine": "bash -c 'tail -f /var/log/syslog'"},
+    {"Image": "/usr/bin/ssh", "CommandLine": "ssh -i ~/.ssh/id_ed25519 user@example.invalid"}
+  ]
+}

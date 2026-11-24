@@ -19,7 +19,7 @@ detection:
   selection_img:
     Image|endswith: '\certutil.exe'
   selection_cache:
-    CommandLine|contains: '-urlcache'
+    CommandLine|windash|contains: '-urlcache'
   selection_url:
     CommandLine|contains: 'http'
   condition: selection_img and selection_cache and selection_url

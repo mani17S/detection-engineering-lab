@@ -1,0 +1,25 @@
+title: Base64-Decoded Content Piped to a Shell
+id: f6e64834-06cc-4335-9f17-75e9542d16b1
+status: experimental
+description: >
+  Detects base64-decoded data piped into a shell interpreter, which hides the command from simple string matching and is common in droppers and post-exploitation scripts.
+references:
+  - https://attack.mitre.org/techniques/T1140/
+  - https://attack.mitre.org/techniques/T1059/004/
+author: mani17S
+date: 2026-11-24
+tags:
+  - attack.defense_evasion
+  - attack.t1140
+  - attack.execution
+  - attack.t1059.004
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|re: 'base64\s+(-d|--decode|-D)\b[^|]*\|\s*(sudo\s+)?(ba|z|da|k)?sh\b'
+  condition: selection
+falsepositives:
+  - Configuration-management or deployment scripts that decode and run a bundled script (baseline by parent process)
+level: high

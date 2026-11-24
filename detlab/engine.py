@@ -1,13 +1,14 @@
 """Minimal evaluator for the Sigma subset used in this repository.
 
 Supported
-  * field modifiers: contains, startswith, endswith, all (combine with the others)
+  * field modifiers: contains, startswith, endswith, re, windash, all (combine with the others)
+  * ``windash`` treats ``-flag`` as also ``/flag`` and en/em-dash variants (Windows accepts them)
   * plain equality with ``*`` wildcards; matching is case-insensitive
   * a list of values is OR'd (AND'd with ``|all``); a list of maps is OR'd
   * conditions: and / or / not / parentheses, ``1 of <name>*``, ``all of <name>*``,
     ``1 of them``, ``all of them``
 
-Not supported (use pySigma / sigma-cli for these): regex, CIDR, base64 modifiers,
+Not supported (use pySigma / sigma-cli for these): CIDR, base64 modifiers,
 aggregations (``count() by``), temporal correlation, field mappings.
 """
 from __future__ import annotations
@@ -27,11 +28,22 @@ def _norm(value: Any) -> str:
     return str(value).lower()
 
 
+_DASHES = ("-", "/", "–", "—", "―")  # hyphen, slash, en/em dash, horizontal bar
+_FLAG_DASH = re.compile(r"(?:(?<=\s)|^)-(?=\S)")
+
+
+def _windash(value: str) -> list[str]:
+    """Variants of a command-line flag using every Windows-accepted dash character."""
+    return sorted({_FLAG_DASH.sub(d, value) for d in _DASHES} | {value})
+
+
 def _match_one(actual: Any, modifiers: list[str], expected: Any) -> bool:
     if expected is None:
         return actual is None
     if actual is None:
         return False
+    if "re" in modifiers:
+        return re.search(str(expected), str(actual), re.IGNORECASE) is not None
     a, e = _norm(actual), _norm(expected)
     if "contains" in modifiers:
         return e in a
@@ -45,7 +57,14 @@ def _match_one(actual: Any, modifiers: list[str], expected: Any) -> bool:
 def _match_field(event: Event, key: str, expected: Any) -> bool:
     field, *modifiers = key.split("|")
     values = expected if isinstance(expected, list) else [expected]
-    results = (_match_one(event.get(field), modifiers, v) for v in values)
+    actual = event.get(field)
+
+    def one(value: Any) -> bool:
+        if "windash" in modifiers and isinstance(value, str):
+            return any(_match_one(actual, modifiers, v) for v in _windash(value))
+        return _match_one(actual, modifiers, value)
+
+    results = (one(v) for v in values)
     return all(results) if "all" in modifiers else any(results)
 
 

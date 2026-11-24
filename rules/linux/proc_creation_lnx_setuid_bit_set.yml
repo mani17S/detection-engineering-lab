@@ -1,0 +1,23 @@
+title: SetUID Bit Added to a File
+id: 374ff5de-aa3f-4d31-b8c9-1652d7705c9e
+status: experimental
+description: >
+  Detects chmod setting the setuid bit (symbolic +s for user/all, or a numeric mode with a leading 4/5/6/7), which attackers use to create a persistent privilege-escalation backdoor.
+references:
+  - https://attack.mitre.org/techniques/T1548/001/
+author: mani17S
+date: 2026-11-24
+tags:
+  - attack.privilege_escalation
+  - attack.persistence
+  - attack.t1548.001
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    CommandLine|re: 'chmod\s+(-\S+\s+)*((u|a)?\+s|[4567][0-7]{3})(\s|$)'
+  condition: selection
+falsepositives:
+  - Package installation and administrators intentionally setting setuid on system binaries (compare against package-manager baselines)
+level: medium

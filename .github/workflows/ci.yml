@@ -11,13 +11,22 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python-version }}
           cache: pip
       - run: pip install -r requirements.txt
       - run: pytest -q
-      - name: ATT&CK coverage table builds
-        run: python -m detlab.coverage rules
+      - name: Coverage table and Navigator layer build
+        run: |
+          python -m detlab.coverage rules > /dev/null
+          python -m detlab.navigator rules > /dev/null
+      - name: Committed coverage docs are up to date
+        run: |
+          python -m detlab.coverage rules | diff -u docs/ATTACK_COVERAGE.md -
