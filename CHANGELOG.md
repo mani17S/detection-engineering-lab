@@ -3,6 +3,12 @@
 All notable changes to this project. Format follows [Keep a Changelog](https://keepachangelog.com/);
 versions follow [SemVer](https://semver.org/).
 
+## [2.0.1] - 2026-11-24
+
+### Fixed
+- CI: the "coverage docs are up to date" check compared the generated table against the whole file
+  including its header, so it failed on every run. It now compares the table only. No rule or engine changes.
+
 ## [2.0.0] - 2026-11-24
 
 ### Added

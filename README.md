@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/mani17S/detection-engineering-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/mani17S/detection-engineering-lab/actions/workflows/ci.yml)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-2.0.0-informational)
+![Version](https://img.shields.io/badge/version-2.0.1-informational)
 
 **Detections treated as code.** Twelve [Sigma](https://sigmahq.io) rules for Windows and Linux/container process telemetry, mapped to MITRE ATT&CK. Every rule ships with attack events that must fire and benign look-alikes that must not, and CI fails if either breaks. A small evaluator lets you test, scan logs and export ATT&CK coverage without a SIEM.
 
