@@ -3,6 +3,19 @@
 All notable changes to this project. Format follows [Keep a Changelog](https://keepachangelog.com/);
 versions follow [SemVer](https://semver.org/).
 
+## [2.1.0] - 2026-11-24
+
+### Added
+- Rule `LSASS Accessed by Code Calling Minidump Libraries` (Sysmon event 10, `process_access`), keyed on
+  `dbgcore.dll`/`dbghelp.dll` in the call trace. Replayed on public samples: 7 of 28 LSASS-access events flagged;
+  misses documented in `docs/REPLAY_RESULTS.md`.
+- Case study `docs/case-studies/comsvcs-minidump.md`.
+- Replay tool support for Sysmon event 10; per-category rule matching.
+- Benign process-access events in the regression set.
+
+### Changed
+- The comsvcs `MiniDump` command-line rule also matches the ordinal form (`#24`, `#+000024`).
+
 ## [2.0.1] - 2026-11-24
 
 ### Fixed

@@ -18,8 +18,8 @@
   "techniques": [
     {
       "techniqueID": "T1003.001",
-      "score": 1,
-      "comment": "LSASS Memory Dump via comsvcs or ProcDump"
+      "score": 2,
+      "comment": "LSASS Accessed by Code Calling Minidump Libraries; LSASS Memory Dump via comsvcs or ProcDump"
     },
     {
       "techniqueID": "T1027",

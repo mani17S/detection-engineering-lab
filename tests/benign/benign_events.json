@@ -21,6 +21,11 @@
     {"Image": "C:\\Windows\\System32\\splwow64.exe", "ParentImage": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "CommandLine": "splwow64.exe 12288"},
     {"Image": "C:\\Tools\\procdump.exe", "CommandLine": "procdump.exe -ma myapp.exe myapp.dmp"}
   ],
+  "windows_process_access": [
+    {"SourceImage": "C:\\Windows\\System32\\csrss.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1000", "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9fc24|C:\\Windows\\System32\\KERNELBASE.dll+2b4c1|C:\\Windows\\System32\\csrsrv.dll+1f6c"},
+    {"SourceImage": "C:\\Windows\\System32\\svchost.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1400"},
+    {"SourceImage": "C:\\Windows\\System32\\wininit.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1fffff", "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9fc24|C:\\Windows\\System32\\wininit.exe+5a2e"}
+  ],
   "linux": [
     {"Image": "/bin/bash", "CommandLine": "bash -c 'ls -la /var/log'"},
     {"Image": "/usr/bin/curl", "CommandLine": "curl -sS https://example.invalid/health"},

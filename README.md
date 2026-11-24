@@ -2,11 +2,18 @@
 
 [![CI](https://github.com/mani17S/detection-engineering-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/mani17S/detection-engineering-lab/actions/workflows/ci.yml)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-2.0.1-informational)
+![Version](https://img.shields.io/badge/version-2.1.0-informational)
 
-**Detections treated as code.** Twelve [Sigma](https://sigmahq.io) rules for Windows and Linux/container process telemetry, mapped to MITRE ATT&CK. Every rule ships with attack events that must fire and benign look-alikes that must not, and CI fails if either breaks. A small evaluator lets you test, scan logs and export ATT&CK coverage without a SIEM.
+**Detections treated as code.** Thirteen [Sigma](https://sigmahq.io) rules for Windows and Linux/container process telemetry, mapped to MITRE ATT&CK. Every rule ships with attack events that must fire and benign look-alikes that must not, and CI fails if either breaks. A small evaluator lets you test, scan logs and export ATT&CK coverage without a SIEM.
 
 > **Defensive use only.** Rules describe behaviour to *detect*. Sample events use placeholder domains and reserved IPs, and contain no working payloads.
+
+## What's new in v2.1
+
+- **New behavioural rule:** `LSASS Accessed by Code Calling Minidump Libraries` (Sysmon process-access), which does not depend on a tool name or command line. Replayed on real data: it flagged 7 of 28 LSASS-access events, with the misses documented ([results](docs/REPLAY_RESULTS.md)).
+- **Hardened a rule:** the comsvcs `MiniDump` command-line rule now also matches the ordinal form (`#24`).
+- **Case study:** an analyst-style write-up of a real public sample, with timeline, evidence vs inference, detection assessment and response outline: [docs/case-studies/comsvcs-minidump.md](docs/case-studies/comsvcs-minidump.md).
+- The replay tool now handles Sysmon process-access events as well as process creation.
 
 ## What's new in v2
 
@@ -20,12 +27,13 @@ See the [CHANGELOG](CHANGELOG.md).
 
 ## Rules
 
-### Windows (Sysmon event 1 / Security 4688)
+### Windows (Sysmon events 1, 10 / Security 4688)
 
 | Tactic | Technique | Rule | Level |
 |---|---|---|---|
 | command and control | T1105 | Certutil Used to Download a File | high |
 | credential access | T1003.001 | LSASS Memory Dump via comsvcs or ProcDump | high |
+| credential access | T1003.001 | LSASS Accessed by Code Calling Minidump Libraries (process access) | high |
 | defense evasion | T1140 | Certutil Used to Encode or Decode a File | medium |
 | execution | T1204.002, T1059 | Office Application Spawning Script or Shell Interpreter | high |
 | execution, defense evasion | T1059.001, T1027 | PowerShell Encoded Command Execution | medium |
@@ -52,7 +60,7 @@ cd detection-engineering-lab
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-pytest -q                                            # 49 tests across rules, engine, CLI, benign guard
+pytest -q                                            # 51 tests across rules, engine, CLI, benign guard
 python -m detlab rules examples/sample_events.jsonl  # scan JSON-lines events (try your own)
 python -m detlab rules examples/sample_events.jsonl --min-level high --format json
 python -m detlab.navigator rules > layer.json        # ATT&CK Navigator coverage layer
@@ -67,7 +75,7 @@ event #1: [HIGH] Certutil Used to Download a File  (T1105)
 event #3: [MEDIUM] Remote Script Downloaded and Piped to a Shell  (T1105, T1059.004)
 event #5: [MEDIUM] PowerShell Encoded Command Execution  (T1059.001, T1027)
 event #6: [HIGH] Container Escape Indicators (Privileged Run, Root Mount, nsenter PID 1)  (T1611)
-4 detection(s) across 8 event(s) using 12 rule(s)
+4 detection(s) across 8 event(s) using 13 rule(s)
 ```
 
 Exit code is `1` when something is detected, so the scanner can gate a pipeline. Events are flat JSON objects with Sigma field names (`Image`, `CommandLine`, `ParentImage`).
@@ -78,7 +86,7 @@ Exit code is `1` when something is detected, so the scanner can gate a pipeline.
 |---|---|---|
 | **Rule metadata** | Valid Sigma fields, unique UUID, severity, ATT&CK tag | `tests/test_rules.py` |
 | **Positive / negative events** | Each rule fires on attack events and stays quiet on tricky look-alikes (same binary, benign arguments) | `tests/events/<rule>.json` |
-| **Benign regression set** | 34 everyday admin commands trigger **no** rule | `tests/benign/benign_events.json` |
+| **Benign regression set** | 37 everyday events (commands and LSASS accesses) trigger **no** rule | `tests/benign/benign_events.json` |
 | **Engine unit tests** | The evaluator itself (conditions, modifiers, `windash`, regex) | `tests/test_engine*.py` |
 | **Replay on real attack logs** | Rules fire on recorded attacker activity (Windows only) | `scripts/replay_evtx.py`, [results](docs/REPLAY_RESULTS.md) |
 

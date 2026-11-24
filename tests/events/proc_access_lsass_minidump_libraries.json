@@ -1,0 +1,13 @@
+{
+  "positive": [
+    {"SourceImage": "C:\\Windows\\System32\\rundll32.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1fffff", "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9fc24|C:\\Windows\\System32\\KERNELBASE.dll+1c5b4|C:\\Windows\\SYSTEM32\\dbgcore.DLL+9247|C:\\windows\\system32\\comsvcs.dll+3c3d4|C:\\Windows\\system32\\rundll32.exe+3bcf"},
+    {"SourceImage": "C:\\Tools\\procdump64.exe", "TargetImage": "C:\\Windows\\system32\\LSASS.EXE", "GrantedAccess": "0x1fffff", "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9fc24|C:\\Windows\\SYSTEM32\\dbghelp.dll+1a2b3|C:\\Tools\\procdump64.exe+4a1f0"},
+    {"SourceImage": "C:\\Users\\Public\\x.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1410", "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9fc24|C:\\Windows\\SYSTEM32\\DBGHELP.DLL+77aa|C:\\Users\\Public\\x.exe+1000"}
+  ],
+  "negative": [
+    {"SourceImage": "C:\\Windows\\System32\\csrss.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1000", "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9fc24|C:\\Windows\\System32\\KERNELBASE.dll+2b4c1|C:\\Windows\\System32\\csrsrv.dll+1f6c"},
+    {"SourceImage": "C:\\Windows\\System32\\rundll32.exe", "TargetImage": "C:\\Windows\\system32\\notepad.exe", "GrantedAccess": "0x1fffff", "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9fc24|C:\\Windows\\SYSTEM32\\dbgcore.DLL+9247|C:\\windows\\system32\\comsvcs.dll+3c3d4"},
+    {"SourceImage": "C:\\Windows\\System32\\svchost.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1400"},
+    {"SourceImage": "C:\\Windows\\System32\\wininit.exe", "TargetImage": "C:\\Windows\\System32\\lsass.exe", "GrantedAccess": "0x1fffff", "CallTrace": "C:\\Windows\\SYSTEM32\\ntdll.dll+9fc24|C:\\Windows\\System32\\wininit.exe+5a2e"}
+  ]
+}

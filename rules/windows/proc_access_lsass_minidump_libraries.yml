@@ -1,0 +1,30 @@
+title: LSASS Accessed by Code Calling Minidump Libraries
+id: fddf91ac-df62-4149-bb2a-d27a634c2641
+status: experimental
+description: >
+  Detects a process opening lsass.exe where the call stack includes dbgcore.dll or dbghelp.dll, the
+  Windows libraries that write memory dumps (MiniDumpWriteDump). This catches LSASS dumping regardless
+  of the tool or command line (comsvcs.dll, ProcDump, custom code), because it keys on the behaviour
+  rather than a binary name or argument string.
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+author: mani17S
+date: 2026-11-24
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  category: process_access
+  product: windows
+  service: sysmon
+detection:
+  selection_target:
+    TargetImage|endswith: '\lsass.exe'
+  selection_dump_libs:
+    CallTrace|contains:
+      - 'dbgcore.dll'
+      - 'dbghelp.dll'
+  condition: selection_target and selection_dump_libs
+falsepositives:
+  - Task Manager "Create dump file", debuggers, and EDR or crash-reporting agents that legitimately dump processes (allow-list by SourceImage and signer)
+level: high
