@@ -1,11 +1,13 @@
 {
   "positive": [
     {"Image": "C:\\Windows\\System32\\rundll32.exe", "CommandLine": "rundll32.exe C:\\Windows\\System32\\comsvcs.dll, MiniDump 624 C:\\Temp\\l.dmp full"},
-    {"Image": "C:\\Tools\\procdump64.exe", "CommandLine": "procdump64.exe -accepteula -ma lsass.exe l.dmp"}
+    {"Image": "C:\\Tools\\procdump64.exe", "CommandLine": "procdump64.exe -accepteula -ma lsass.exe l.dmp"},
+    {"Image": "C:\\Users\\user\\Desktop\\PPLdump.exe", "CommandLine": "ppldump.exe -v lsass lsass.dmp"}
   ],
   "negative": [
     {"Image": "C:\\Tools\\procdump.exe", "CommandLine": "procdump.exe -ma chrome.exe c.dmp"},
     {"Image": "C:\\Windows\\System32\\rundll32.exe", "CommandLine": "rundll32.exe shell32.dll,Control_RunDLL"},
-    {"Image": "C:\\Windows\\System32\\notepad.exe", "CommandLine": "notepad.exe lsass-notes.txt"}
+    {"Image": "C:\\Windows\\System32\\notepad.exe", "CommandLine": "notepad.exe lsass-notes.txt"},
+    {"Image": "C:\\Users\\user\\Desktop\\PPLdump.exe", "CommandLine": "ppldump.exe -v notepad notepad.dmp"}
   ]
 }

@@ -61,6 +61,18 @@ tests/test_engine.py            unit tests for the evaluator
 2. Add `tests/events/<name>.json` with real-world-shaped positives and *tricky* negatives (same binary, benign arguments).
 3. `pytest -q` until green, then open a PR. CI runs the same checks.
 
+## Replay against real attack data
+
+`scripts/replay_evtx.py` replays EVTX logs through the rules. I ran it on 278 public attack samples
+(1,533 process-creation events): **14 detections, all reviewed and genuine attack activity**, and the review
+of *misses* found one real gap (PPLdump) that I fixed. Full method, numbers and caveats, including that
+this is **not** a false-positive measurement, are in [docs/REPLAY_RESULTS.md](docs/REPLAY_RESULTS.md).
+
+```bash
+pip install -r requirements-replay.txt
+python -I scripts/replay_evtx.py path/to/evtx-files
+```
+
 ## The evaluator (`detlab/`)
 
 A ~150-line Sigma-subset evaluator so rules can be unit-tested without a SIEM. It supports `contains` / `startswith` / `endswith` / `all` modifiers, wildcards, lists, and conditions with `and`/`or`/`not`/parentheses/`1 of x*`/`all of them`. It is **case-insensitive**, like most Sigma backends.
@@ -69,7 +81,7 @@ It deliberately does **not** support regex, CIDR, base64 modifiers, aggregations
 
 ## Limitations (read before trusting these)
 
-- **Tested on hand-written events, not real telemetry.** Passing tests shows the logic does what I intended, not that it has a good false-positive rate in your environment.
+- **Unit tests use hand-written events; the replay uses lab-recorded attack samples, not production telemetry.** Passing tests shows the logic does what I intended, not that it has a good false-positive rate in your environment.
 - **Command-line rules are evadable** (renamed binaries, different flag spellings, obfuscation). They are tripwires for common tradecraft, not complete coverage.
 - `status: experimental` on every rule, on purpose: none has been validated against production data.
 - Severity levels are my starting point; tune them to your environment.
@@ -77,7 +89,9 @@ It deliberately does **not** support regex, CIDR, base64 modifiers, aggregations
 ## Roadmap
 
 - [ ] Rules for Linux auditd and container runtime events (building on [DockerScape](https://github.com/mani17S/DockerScape))
-- [ ] Replay public datasets (e.g. EVTX samples) through the rules and record true/false-positive counts
+- [x] Replay public EVTX attack samples and review hits and misses (see docs/REPLAY_RESULTS.md)
+- [ ] Replay a benign baseline to measure false positives
+- [ ] Add a `certutil -encode/-decode` rule (T1140)
 - [ ] Convert to a SIEM query (via pySigma) and validate in a home-lab Wazuh/Elastic stack
 - [ ] Sigma regex and `count()` support in the evaluator, with tests
 

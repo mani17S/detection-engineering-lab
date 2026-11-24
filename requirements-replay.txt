@@ -1,0 +1,2 @@
+-r requirements.txt
+evtx>=0.8

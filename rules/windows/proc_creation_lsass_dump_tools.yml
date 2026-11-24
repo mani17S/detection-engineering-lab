@@ -3,7 +3,7 @@ id: 8e5f25cb-f1c8-476b-8075-2255c89798c9
 status: experimental
 description: >
   Detects common command lines used to dump LSASS process memory for credential theft: rundll32
-  calling comsvcs.dll MiniDump, or ProcDump targeting lsass.
+  calling comsvcs.dll MiniDump, or ProcDump/PPLdump targeting lsass.
 references:
   - https://attack.mitre.org/techniques/T1003/001/
 author: mani17S
@@ -23,6 +23,7 @@ detection:
     Image|endswith:
       - '\procdump.exe'
       - '\procdump64.exe'
+      - '\ppldump.exe'
     CommandLine|contains: 'lsass'
   condition: 1 of selection_*
 falsepositives:
